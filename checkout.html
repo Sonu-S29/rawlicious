@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Raw Licious</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    @media(min-width: 1024px) {
+      .checkout-grid {
+        grid-template-columns: 7fr 5fr;
+      }
+    }
+    .input-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--on-surface-variant);
+      margin-left: 8px;
+      margin-bottom: 8px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-content">
+      <a href="index.html" class="logo">Raw<span>Licious.</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="menu.html" class="nav-link">Menu</a>
+        <a href="cart.html" class="nav-link">Cart</a>
+        <a href="checkout.html" class="nav-link active">Checkout</a>
+      </div>
+      <a href="cart.html" class="nav-cart">
+        <span class="material-symbols-outlined">shopping_bag</span>
+        <span class="cart-badge">3</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="pt-navbar section-padding">
+    <div class="container" style="max-width: 1152px;">
+      <div class="checkout-grid">
+        
+        <!-- Left Column -->
+        <div class="flex flex-col gap-8">
+          <section>
+            <h2 style="font-size: 3rem; font-weight: 900; letter-spacing: -0.05em; color: var(--on-surface); margin-bottom: 12px; line-height: 1;">
+              Freshness <span style="color: var(--primary); font-style: italic;">incoming.</span>
+            </h2>
+            <p style="color: var(--on-surface-variant); font-size: 1.125rem;">Where should we deliver your dose of vitality?</p>
+          </section>
+
+          <form class="flex flex-col gap-6">
+            <div class="glass-card" style="padding: 32px;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+                <span class="material-symbols-outlined" style="color: var(--primary);">local_shipping</span>
+                Delivery Details
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6" style="margin-bottom: 24px;">
+                <div>
+                  <label class="input-label">Full Name</label>
+                  <input id="inputName" class="input-field" type="text" placeholder="Rahul Shah" required>
+                </div>
+                <div>
+                  <label class="input-label">Phone Number</label>
+                  <input id="inputPhone" class="input-field" type="tel" placeholder="+91 8591791347" required>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 24px;">
+                <label class="input-label">Delivery Address</label>
+                <div style="position: relative;">
+                  <input id="inputAddress" class="input-field" style="padding-right: 56px;" type="text" placeholder="Street, Area, Landmark" required>
+                  <span class="material-symbols-outlined" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--primary);">map</span>
+                </div>
+              </div>
+
+              <!-- Distance indicator visual -->
+              <div class="flex items-center gap-4" style="background: rgba(143,242,255,0.1); border: 1px solid rgba(143,242,255,0.2); padding: 20px; border-radius: 16px;">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(143,242,255,0.2); display: flex; align-items: center; justify-content: center; color: var(--tertiary); flex-shrink: 0;">
+                  <span class="material-symbols-outlined">speed</span>
+                </div>
+                <div style="flex-grow: 1;">
+                  <div class="flex justify-between items-center" style="margin-bottom: 8px;">
+                    <span style="font-size: 0.875rem; font-weight: 800; color: var(--tertiary);">Distance: Calculating...</span>
+                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: -0.05em; font-weight: 800; color: var(--tertiary);">Express</span>
+                  </div>
+                  <div style="height: 8px; width: 100%; background: rgba(255,255,255,0.05); border-radius: 999px; overflow: hidden;">
+                    <div style="height: 100%; background: linear-gradient(to right, var(--primary), var(--secondary)); width: 42%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <section class="glass-card" style="padding: 32px; position: relative; overflow: hidden; border-color: rgba(205,255,96,0.3);">
+            <div style="position: absolute; right: -80px; top: -80px; width: 256px; height: 256px; background: rgba(205,255,96,0.1); filter: blur(80px);"></div>
+            <div class="flex justify-between items-center" style="position: relative; z-index: 10;">
+              <div>
+                <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;">WhatsApp Order</h2>
+                <p style="color: var(--on-surface-variant); font-size: 0.875rem; max-width: 380px;">Send your order list directly to our kitchen via WhatsApp for instant confirmation and payment links.</p>
+              </div>
+              <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(16,185,129,0.2); box-shadow: 0 0 20px rgba(16,185,129,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <span class="material-symbols-outlined" style="color: #34d399; font-size: 32px;">chat</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column / Summary -->
+        <div>
+          <div style="position: sticky; top: 96px; display: flex; flex-direction: column; gap: 24px;">
+            <div class="glass-card" style="padding: 32px; border-top: 4px solid var(--primary);">
+              <h3 style="font-size: 1.5rem; font-weight: 900; margin-bottom: 32px;">Order Summary</h3>
+              
+              <div id="checkoutOrderList" class="flex flex-col gap-6" style="margin-bottom: 32px;">
+                <!-- Dynamically Injected Items -->
+              </div>
+
+              <div class="flex flex-col gap-4" style="padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div class="flex justify-between" style="color: var(--on-surface-variant);">
+                  <span>Subtotal</span>
+                  <span id="checkoutSubtotal">₹0.00</span>
+                </div>
+                <div class="flex justify-between" style="color: var(--on-surface-variant);">
+                  <span>Eco-Fee</span>
+                  <span id="checkoutEcoFee">₹10.00</span>
+                </div>
+                <div class="flex justify-between" style="font-size: 1.5rem; font-weight: 900; color: var(--on-surface); padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);">
+                  <span>Total</span>
+                  <span id="checkoutTotal" style="color: var(--primary);">₹0.00</span>
+                </div>
+              </div>
+
+              <button id="btnConfirmOrder" style="width: 100%; margin-top: 40px; background: #10b981; color: #000; font-weight: 900; padding: 20px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px; transition: transform 0.2s; box-shadow: 0 10px 40px rgba(16,185,129,0.2);">
+                <span class="material-symbols-outlined" style="font-size: 1.25rem;">send</span>
+                Confirm via WhatsApp
+              </button>
+              <p style="text-align: center; font-size: 0.75rem; color: var(--on-surface-variant); margin-top: 24px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <span class="material-symbols-outlined" style="font-size: 0.875rem;">lock</span> Secure Link
+              </p>
+            </div>
+
+            <div class="glass-card" style="height: 160px; border-radius: 16px; overflow: hidden; position: relative; cursor: pointer;">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXZk7BfmuSJMMXjO5bjqfHe467V-CKiyJ1pT2HyjA-wd8jHcn4PP5RYp11DGpkuJIboqE-ft_7tq37CQwyCfkA9l9KvMipsp8V2I63nj_4dDIM_brWLCgDAlq8aDNWOUPUadZeB2kt31cLbYw8b5VVGDjoyfpWs69IAf8HLwiAgbLpgZcvj2i1vFcjzA9viB9W12K5UR6e9wpZTFeRHDHyk_6esCzciRWgqdubS6vCMpoZA-77RhgFJlTemPIIYNche7X1_Z096B8" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: all 0.7s;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(to top, var(--surface), transparent);"></div>
+              <div style="position: absolute; bottom: 16px; left: 16px; right: 16px; display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.875rem; font-weight: 800; color: var(--on-surface);">Store Pick Up Available</span>
+                <span class="material-symbols-outlined" style="color: var(--primary);">arrow_outward</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Nav (Mobile) -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">home</span>
+      <span>Home</span>
+    </a>
+    <a href="menu.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">restaurant_menu</span>
+      <span>Menu</span>
+    </a>
+    <a href="cart.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">shopping_cart</span>
+      <span>Cart</span>
+    </a>
+    <a href="checkout.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined">credit_card</span>
+      <span>Checkout</span>
+    </a>
+  </nav>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raw Licious - 100% Pure Freshness</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-content">
+      <a href="index.html" class="logo">Raw<span>Licious.</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="menu.html" class="nav-link">Menu</a>
+        <a href="cart.html" class="nav-link">Cart</a>
+        <a href="checkout.html" class="nav-link">Checkout</a>
+      </div>
+      <a href="cart.html" class="nav-cart">
+        <span class="material-symbols-outlined">shopping_bag</span>
+        <span class="cart-badge">3</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section">
+      <div class="hero-bg">
+        <img alt="Background Jungle Leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4PtAEqCgIpo91F-H0EdvwLvcpbmhTbrIxkvO1bKDQijZ1e44qX3ukO3zL3wv0ZMHALedBe2yoGtMSGfOrOZGt54F232ewpZRVAmhNDj2nkoHy3gOGaCxt_SPYOOv5wBGsCnNvXCaG0ZJroH3_RqMTMU3dD9NUqkv6vlP8y7_6HFX8GsppLRq8Y8Z6HxLXA49_SpqSovQiSL1vJIoCVZO5W09BlE1GNzLIiX5HQ2FlkgVcHQlFPJtkSZQ35xUR9tBMt2ybuJUJGng" />
+        <div class="hero-overlay"></div>
+      </div>
+      
+      <div class="hero-content">
+        <span class="hero-badge">Pressed to Perfection</span>
+        <h1 class="hero-title">100% Pure <br/><span class="bg-gradient-primary bg-clip-text text-transparent text-glow">Freshness</span></h1>
+        <p class="hero-desc">Cold-pressed elixirs harvested from organic soils. No additives, no compromises. Just the raw power of nature in every drop.</p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <a href="menu.html" class="btn-primary">Shop All Juices</a>
+          <button class="btn-secondary">Our Process</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daily Harvest Section -->
+    <section class="section-padding bg-surface-low">
+      <div class="container">
+        <div class="flex justify-between items-center" style="margin-bottom: 64px;">
+          <div>
+            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 8px;">Menu Categories</h2>
+            <p style="color: var(--on-surface-variant);">Explore our range of 100% natural, fresh elixirs.</p>
+          </div>
+        </div>
+        
+        <div id="homeCategoriesWrapper" class="flex flex-col gap-6" style="max-width: 100%;">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Join Newsletter -->
+    <section class="section-padding" style="padding-bottom: 48px;">
+      <div class="container container-sm">
+        <div class="glass-panel" style="padding: 64px 32px; text-align: center; border-radius: 24px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 256px; height: 256px; background: rgba(205, 255, 96, 0.1); filter: blur(100px);"></div>
+          <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 24px; position: relative; z-index: 10;">Join the Vitality Club</h2>
+          <p style="color: var(--on-surface-variant); margin-bottom: 40px; position: relative; z-index: 10;">Get 15% off your first subscription and weekly tips on raw nutrition.</p>
+          <div class="flex flex-col sm:flex-row gap-4" style="max-width: 500px; margin: 0 auto; position: relative; z-index: 10;">
+            <input type="email" class="input-field" placeholder="Your email address" style="flex-grow: 1;">
+            <button class="btn-primary" style="padding: 16px 32px; white-space: nowrap;">Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Nav (Mobile) -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined">home</span>
+      <span>Home</span>
+    </a>
+    <a href="menu.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">restaurant_menu</span>
+      <span>Menu</span>
+    </a>
+    <a href="cart.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">shopping_cart</span>
+      <span>Cart</span>
+    </a>
+    <a href="checkout.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">credit_card</span>
+      <span>Checkout</span>
+    </a>
+  </nav>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - Raw Licious</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-content">
+      <a href="index.html" class="logo">Raw<span>Licious.</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="menu.html" class="nav-link active">Menu</a>
+        <a href="cart.html" class="nav-link">Cart</a>
+        <a href="checkout.html" class="nav-link">Checkout</a>
+      </div>
+      <a href="cart.html" class="nav-cart">
+        <span class="material-symbols-outlined">shopping_bag</span>
+        <span class="cart-badge">3</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Menu Section -->
+  <main class="pt-navbar section-padding">
+    <div class="container container-sm">
+      <section style="margin-bottom: 48px; text-align: center;">
+        <h1 class="hero-title" style="margin-bottom: 16px; font-size: 3.5rem;">
+          The Living <span class="bg-gradient-primary bg-clip-text text-transparent">Menu.</span>
+        </h1>
+        <p class="hero-desc" style="margin-bottom: 0;">
+          Cold-pressed, nutrient-dense elixirs crafted for the bold. Experience the humid vitality of the Living Greenhouse.
+        </p>
+      </section>
+
+      <!-- Category Filter -->
+      <nav class="category-nav no-scrollbar" id="categoryNav">
+        <!-- Generates from JS -->
+      </nav>
+
+      <!-- Menu Items Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menuGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Nav (Mobile) -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">home</span>
+      <span>Home</span>
+    </a>
+    <a href="menu.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined">restaurant_menu</span>
+      <span>Menu</span>
+    </a>
+    <a href="cart.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">shopping_cart</span>
+      <span>Cart</span>
+    </a>
+    <a href="checkout.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">credit_card</span>
+      <span>Checkout</span>
+    </a>
+  </nav>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

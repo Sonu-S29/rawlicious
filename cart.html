@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - Raw Licious</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .cart-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+    @media(min-width: 768px) {
+      .cart-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-content">
+      <a href="index.html" class="logo">Raw<span>Licious.</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="menu.html" class="nav-link">Menu</a>
+        <a href="cart.html" class="nav-link active">Cart</a>
+        <a href="checkout.html" class="nav-link">Checkout</a>
+      </div>
+      <a href="cart.html" class="nav-cart">
+        <span class="material-symbols-outlined">shopping_bag</span>
+        <span class="cart-badge">3</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="pt-navbar section-padding">
+    <div class="container container-sm">
+      <div style="margin-bottom: 40px; text-align: center;">
+        <h2 style="font-size: 3rem; font-weight: 900; color: var(--primary); margin-bottom: 12px; letter-spacing: -0.05em;">Your Greenhouse</h2>
+        <p id="cartTitleCount" style="color: var(--on-surface-variant); font-size: 1.125rem;">0 Freshly picked items ready for harvest.</p>
+      </div>
+
+      <div class="flex flex-col gap-6" id="cartItems">
+         <!-- Dynamic Cart Items Injected Here -->
+      </div>
+
+      <div class="cart-grid">
+        <div class="glass-card flex flex-col justify-between" style="padding: 32px; border-color: rgba(205,255,96,0.2);">
+          <div>
+            <h4 style="font-size: 0.875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 16px;">Eco-Packaging</h4>
+            <p style="color: var(--on-surface-variant); font-size: 0.875rem; line-height: 1.6;">All our juices are delivered in compostable glass bottles. Return them on your next order for 10% credit.</p>
+          </div>
+          <div class="flex items-center gap-4" style="margin-top: 32px;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: var(--surface-dim); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(205,255,96,0.3);">
+              <span class="material-symbols-outlined">eco</span>
+            </div>
+            <span style="font-size: 0.875rem; font-weight: 800;">Carbon Neutral Delivery</span>
+          </div>
+        </div>
+
+        <div style="background: var(--surface-container-high); padding: 32px; border-radius: 24px; display: flex; flex-direction: column; gap: 16px;">
+          <div class="flex justify-between" style="color: var(--on-surface-variant);">
+            <span>Subtotal</span>
+            <span id="cartSubtotal" style="color: var(--on-surface); font-weight: 500;">₹0.00</span>
+          </div>
+          <div class="flex justify-between" style="color: var(--on-surface-variant);">
+            <span>Eco-Fee</span>
+            <span id="ecoFeeDisplay" style="color: var(--on-surface); font-weight: 500;">₹10.00</span>
+          </div>
+          <div class="flex justify-between" style="color: var(--on-surface-variant);">
+            <span>Delivery</span>
+            <span style="color: var(--secondary); font-weight: 500;">FREE</span>
+          </div>
+          
+          <div class="flex justify-between items-end" style="padding-top: 24px; margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <span style="font-size: 1.125rem; font-weight: 800;">Total</span>
+            <div style="text-align: right;">
+              <span id="cartTotal" style="display: block; font-size: 2.25rem; font-weight: 900; color: var(--primary); letter-spacing: -0.05em; line-height: 1;">₹0.00</span>
+              <span style="font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--on-surface-variant);">Tax Included</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="checkout.html" class="btn-primary" style="width: 100%; margin-top: 32px; gap: 12px;">
+        Proceed to Checkout
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
+    </div>
+  </main>
+
+  <!-- Bottom Nav (Mobile) -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">home</span>
+      <span>Home</span>
+    </a>
+    <a href="menu.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">restaurant_menu</span>
+      <span>Menu</span>
+    </a>
+    <a href="cart.html" class="bottom-nav-item active">
+      <span class="material-symbols-outlined">shopping_cart</span>
+      <span>Cart</span>
+    </a>
+    <a href="checkout.html" class="bottom-nav-item">
+      <span class="material-symbols-outlined">credit_card</span>
+      <span>Checkout</span>
+    </a>
+  </nav>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
