@@ -788,7 +788,7 @@ button {
     border-radius: 24px;
     transition: transform 0.7s;
   }
-  
+
   .menu-item-card:hover .menu-item-img-wrap img {
     transform: scale(1.05);
   }
@@ -890,16 +890,115 @@ button {
 .custom-details-dropdown summary::-webkit-details-marker {
   display: none;
 }
+
 .custom-details-dropdown summary {
   list-style: none;
   user-select: none;
 }
+
 .custom-details-dropdown summary:focus {
   outline: none;
 }
+
 .custom-details-dropdown[open] summary span {
   transform: rotate(180deg);
 }
+
 .custom-details-dropdown summary span {
   transition: transform 0.3s ease;
+}
+
+/* Smart Checkout Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.checkout-modal-card {
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 32px;
+  background: rgba(15, 36, 22, 0.95);
+  border: 1px solid rgba(205, 255, 96, 0.2);
+  padding: 32px;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+.modal-step {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.modal-step.active {
+  display: block;
+}
+
+.address-option-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.address-option-card:hover {
+  background: rgba(205, 255, 96, 0.05);
+  border-color: rgba(205, 255, 96, 0.3);
+}
+
+.address-option-card.selected {
+  background: rgba(205, 255, 96, 0.1);
+  border-color: var(--primary);
+}
+
+.loyalty-banner {
+  background: linear-gradient(135deg, rgba(205, 255, 96, 0.15), transparent);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(205, 255, 96, 0.2);
+}
+
+.checkout-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: #fff;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.checkout-input:focus {
+  border-color: var(--primary);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

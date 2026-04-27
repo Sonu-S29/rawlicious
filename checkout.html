@@ -78,10 +78,14 @@
               </div>
 
               <div style="margin-bottom: 24px;">
-                <label class="input-label">Delivery Address</label>
-                <div style="position: relative;">
-                  <input id="inputAddress" class="input-field" style="padding-right: 56px;" type="text" placeholder="Street, Area, Landmark" required>
-                  <span class="material-symbols-outlined" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--primary);">map</span>
+                <label class="input-label" style="margin-bottom: 12px;">Delivery Address</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" style="margin-bottom: 12px;">
+                  <input id="inputBuilding" class="input-field" type="text" placeholder="Apt / Building / House No" required>
+                  <input id="inputStreet" class="input-field" type="text" placeholder="Street / Road Name" required>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <input id="inputLandmark" class="input-field" type="text" placeholder="Nearest Landmark" required>
+                  <input id="inputPincode" class="input-field" type="text" placeholder="Pincode (e.g. 400050)" required>
                 </div>
               </div>
 
@@ -92,8 +96,8 @@
                 </div>
                 <div style="flex-grow: 1;">
                   <div class="flex justify-between items-center" style="margin-bottom: 8px;">
-                    <span style="font-size: 0.875rem; font-weight: 800; color: var(--tertiary);">Distance: Calculating...</span>
-                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: -0.05em; font-weight: 800; color: var(--tertiary);">Express</span>
+                    <span id="distanceText" style="font-size: 0.875rem; font-weight: 800; color: var(--tertiary);">Enter Address First...</span>
+                    <span id="deliveryFeeText" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: -0.05em; font-weight: 800; color: var(--tertiary);">₹0</span>
                   </div>
                   <div style="height: 8px; width: 100%; background: rgba(255,255,255,0.05); border-radius: 999px; overflow: hidden;">
                     <div style="height: 100%; background: linear-gradient(to right, var(--primary), var(--secondary)); width: 42%;"></div>
@@ -133,8 +137,8 @@
                   <span id="checkoutSubtotal">₹0.00</span>
                 </div>
                 <div class="flex justify-between" style="color: var(--on-surface-variant);">
-                  <span>Eco-Fee</span>
-                  <span id="checkoutEcoFee">₹10.00</span>
+                  <span>Delivery Charge</span>
+                  <span id="checkoutEcoFee">₹0.00</span>
                 </div>
                 <div class="flex justify-between" style="font-size: 1.5rem; font-weight: 900; color: var(--on-surface); padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);">
                   <span>Total</span>
