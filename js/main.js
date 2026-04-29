@@ -70,16 +70,22 @@ const CartManager = {
       const isAdded = cart.some(item => item.id === id && item.size === size && item.sweetener === sweetener);
       
       if (isAdded) {
-        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 18px;">check_circle</span> Added';
+        if (btn.classList.contains('marquee-add-btn')) {
+           btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px; font-variation-settings: \\\'wght\\\' 300;">check_circle</span> Added';
+        } else {
+           btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: \\\'wght\\\' 300;">check</span>';
+        }
         btn.classList.add('btn-added-state');
         if (btn.classList.contains('btn-primary')) {
            btn.style.backgroundColor = 'var(--primary)';
            btn.style.color = '#000';
         }
       } else {
-        btn.innerHTML = btn.classList.contains('add-btn') && !btn.classList.contains('marquee-add-btn') 
-           ? '<span class="material-symbols-outlined">add_shopping_cart</span>' 
-           : '<span class="material-symbols-outlined" style="font-size: 18px;">add_shopping_cart</span> Add';
+        if (btn.classList.contains('marquee-add-btn')) {
+           btn.innerHTML = 'Add';
+        } else {
+           btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: \\\'wght\\\' 300;">add_shopping_cart</span>';
+        }
         btn.classList.remove('btn-added-state');
         btn.style.backgroundColor = '';
         btn.style.color = '';
@@ -472,8 +478,8 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
               <div class="flex justify-between items-center mt-auto">
                 <span class="dynamic-price" style="font-size: 1.2rem; font-weight: 900; color: var(--primary);">₹${prices[sizes[0]]}</span>
-                <button class="add-btn btn-primary" data-item-id="${item.id}" data-size="${sizes[0]}" data-price="${prices[sizes[0]]}" style="border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" onclick="window.addToCart('${item.id}', '${item.name}', '${images[idx % 5]}', this.dataset.price, '', this, '${encoded}', this.dataset.size)">
-                  <span class="material-symbols-outlined">add_shopping_cart</span>
+                <button class="add-btn btn-primary" data-item-id="${item.id}" data-size="${sizes[0]}" data-price="${prices[sizes[0]]}" style="padding: 0; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;" onclick="window.addToCart('${item.id}', '${item.name}', '${images[idx % 5]}', this.dataset.price, '', this, '${encoded}', this.dataset.size)">
+                  <span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: 'wght' 300;">add_shopping_cart</span>
                 </button>
               </div>
             </div>
