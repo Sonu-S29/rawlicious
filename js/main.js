@@ -243,23 +243,29 @@ function renderCheckoutPage() {
   const deliveryFeeText = document.getElementById('deliveryFeeText');
 
   const getFullAddress = () => {
-    const b = document.getElementById('inputBuilding')?.value || '';
-    const s = document.getElementById('inputStreet')?.value || '';
-    const l = document.getElementById('inputLandmark')?.value || '';
-    const p = document.getElementById('inputPincode')?.value || '';
+    const b = document.getElementById('inputBuilding')?.value.trim() || '';
+    const s = document.getElementById('inputStreet')?.value.trim() || '';
+    const l = document.getElementById('inputLandmark')?.value.trim() || '';
+    const p = document.getElementById('inputPincode')?.value.trim() || '';
+    // PROPER VERIFICATION: Require at least a Street and a 6-digit Pincode to geocode
+    if (s.length < 3 || p.length < 6) return null;
     const parts = [b, s, l, p].filter(Boolean);
-    if (parts.length === 0) return '';
     return parts.join(', ') + ', Mumbai, Maharashtra, India';
   };
 
   const calculateAddressDistance = async () => {
     const addr = getFullAddress();
-    if (addr.length < 5) return;
-    if (distanceText) distanceText.innerText = "Calculating distance...";
+    if (!addr) {
+      if (distanceText) distanceText.innerText = "Enter Street & Pincode to calculate.";
+      return;
+    }
+    if (distanceText) distanceText.innerText = "Verifying & calculating...";
     try {
       const geo = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(addr)}&apiKey=${GEOAPIFY_KEY}`).then(r=>r.json());
       if(geo.features && geo.features.length > 0) {
-         const {lat, lon} = geo.features[0].properties;
+         // Check confidence if available, but primarily trust the Pincode requirement
+         const bestMatch = geo.features[0];
+         const {lat, lon} = bestMatch.properties;
          const radLat1 = SHOP_LAT * Math.PI / 180;
          const radLat2 = lat * Math.PI / 180;
          const radTheta = (lon - SHOP_LON) * Math.PI / 180;
@@ -269,14 +275,14 @@ function renderCheckoutPage() {
          
          checkoutData.distance = dist.toFixed(2);
          checkoutData.fee = dist > 1 ? Math.round((dist-1)*12) : 0;
-         if (distanceText) distanceText.innerText = `Distance: ${checkoutData.distance} km`;
+         if (distanceText) distanceText.innerHTML = `<span style="color: #34d399;">✓ Verified</span> - Distance: ${checkoutData.distance} km`;
          if (deliveryFeeText) deliveryFeeText.innerText = `Fee: ₹${checkoutData.fee}`;
          updateUI();
       } else {
-         if (distanceText) distanceText.innerText = "Address not found.";
+         if (distanceText) distanceText.innerText = "Address not found. Please refine.";
       }
     } catch(e) {
-      if (distanceText) distanceText.innerText = "Error calculating.";
+      if (distanceText) distanceText.innerText = "Error calculating distance.";
     }
   };
 
@@ -312,7 +318,7 @@ function renderCheckoutPage() {
           checkoutData.mobile = inputPhone.value;
           checkoutData.selectedAddress = getFullAddress();
           if(!checkoutData.mobile) return alert('Enter phone number');
-          if(!checkoutData.selectedAddress) return alert('Enter full address');
+          if(!checkoutData.selectedAddress) return alert('Please enter a complete address including Street and a 6-digit Pincode.');
           finalSubmit();
       } else {
           startSmartCheckout();
