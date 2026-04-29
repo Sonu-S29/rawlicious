@@ -247,16 +247,16 @@ function renderCheckoutPage() {
     const s = document.getElementById('inputStreet')?.value.trim() || '';
     const l = document.getElementById('inputLandmark')?.value.trim() || '';
     const p = document.getElementById('inputPincode')?.value.trim() || '';
-    // PROPER VERIFICATION: Require at least a Street and a 6-digit Pincode to geocode
-    if (s.length < 3 || p.length < 6) return null;
-    const parts = [b, s, l, p].filter(Boolean);
+    // Require all 4 fields to be filled before geocoding
+    if (b.length < 2 || s.length < 3 || l.length < 3 || p.length < 6) return null;
+    const parts = [b, s, l, p];
     return parts.join(', ') + ', Mumbai, Maharashtra, India';
   };
 
   const calculateAddressDistance = async () => {
     const addr = getFullAddress();
     if (!addr) {
-      if (distanceText) distanceText.innerText = "Enter Street & Pincode to calculate.";
+      if (distanceText) distanceText.innerText = "Fill all 4 address fields to calculate.";
       return;
     }
     if (distanceText) distanceText.innerText = "Verifying & calculating...";
@@ -318,7 +318,7 @@ function renderCheckoutPage() {
           checkoutData.mobile = inputPhone.value;
           checkoutData.selectedAddress = getFullAddress();
           if(!checkoutData.mobile) return alert('Enter phone number');
-          if(!checkoutData.selectedAddress) return alert('Please enter a complete address including Street and a 6-digit Pincode.');
+          if(!checkoutData.selectedAddress) return alert('Please completely fill all 4 address fields (Building, Street, Landmark, Pincode).');
           finalSubmit();
       } else {
           startSmartCheckout();
