@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="glass-card marquee-product-card" style="padding: 10px; width: 140px; flex-shrink: 0; display: flex; flex-direction: column;">
               <div style="position: relative; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden;">
                 <img src="${images[(i+idx)%5]}" style="width: 100%; height: 100%; object-fit: cover;">
-                <button onclick="window.toggleHealthInfo(this, '${item.name}')" style="position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.6); border-radius: 50%; width: 24px; height: 24px; border: 1px solid rgba(255,255,255,0.2);"><span class="material-symbols-outlined" style="font-size: 14px; color: var(--primary);">spa</span></button>
+                <button onclick="window.toggleHealthInfo(this, '${item.name}')" style="position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2);"><span class="material-symbols-outlined" style="font-size: 13px; color: var(--primary); font-variation-settings: 'wght' 300;">spa</span></button>
                 <div class="marquee-price-tag" style="position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 99px; font-size: 0.65rem; font-weight: 800; color: var(--primary);">₹${prices[sizes[0]]}</div>
               </div>
               <h4 style="font-size: 0.8rem; font-weight: 800; margin: 8px 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.name}</h4>
@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="menu-item-card glass-card">
             <div style="position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 12px;">
               <img src="${images[idx % 5]}" style="width: 100%; height: 100%; object-fit: cover;">
-              <button onclick="window.toggleHealthInfo(this, '${item.name}')" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); border-radius: 50%; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.2);"><span class="material-symbols-outlined" style="font-size: 16px; color: var(--primary);">spa</span></button>
+              <button onclick="window.toggleHealthInfo(this, '${item.name}')" style="position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.3); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2);"><span class="material-symbols-outlined" style="font-size: 14px; color: var(--primary); font-variation-settings: 'wght' 300;">spa</span></button>
             </div>
             <div class="menu-item-content" style="padding: 16px;">
               <h3 style="font-weight: 800; font-size: 1.1rem;">${item.name}</h3>
