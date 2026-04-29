@@ -315,8 +315,12 @@ function renderCheckoutPage() {
     btn.onclick = async (e) => {
       e.preventDefault();
       if (inputPhone && document.getElementById('inputBuilding')) {
+          const inputName = document.getElementById('inputName');
+          checkoutData.name = inputName ? inputName.value.trim() : '';
           checkoutData.mobile = inputPhone.value;
           checkoutData.selectedAddress = getFullAddress();
+          
+          if(!checkoutData.name) return alert('Enter full name');
           if(!checkoutData.mobile) return alert('Enter phone number');
           if(!checkoutData.selectedAddress) return alert('Please completely fill all 4 address fields (Building, Street, Landmark, Pincode).');
           finalSubmit();
@@ -484,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- Checkout Modal Logic ---
-let checkoutData = { mobile: '', selectedAddress: '', addresses: [], points: 0, distance: 0, fee: 0, sweetener: 'Honey' };
+let checkoutData = { name: '', mobile: '', selectedAddress: '', addresses: [], points: 0, distance: 0, fee: 0, sweetener: 'Honey' };
 async function startSmartCheckout() {
   const modal = document.createElement('div');
   modal.id = 'checkoutModal';
@@ -535,8 +539,41 @@ async function handleStep2() {
 async function finalSubmit() {
   const cart = CartManager.getCart();
   const sub = CartManager.getSubtotal();
-  const payload = { mobile: checkoutData.mobile, address: checkoutData.selectedAddress, orderDetails: cart.map(i=>`${i.name} x${i.quantity}`).join(','), total: (sub+10+checkoutData.fee).toFixed(2), sweetener: checkoutData.sweetener, distance: checkoutData.distance };
-  await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-  let msg = `*RAW LICIOUS ORDER*%0A*Customer:* ${checkoutData.mobile}%0A*Sweetener:* ${checkoutData.sweetener}%0A*Items:* ${payload.orderDetails}%0A*Total:* ₹${payload.total}`;
+  const fee = checkoutData.fee || 0;
+  const grandTotal = (sub + fee).toFixed(2);
+  
+  // Format Order Lines beautifully for WhatsApp
+  const orderDetailsLines = cart.map(i => `• ${i.name} (${i.size}, ${i.sweetener || 'Honey'}) x${i.quantity}`).join('%0A');
+  const orderDetailsPlain = cart.map(i => `${i.name} (${i.size}) x${i.quantity}`).join(', ');
+
+  const payload = { 
+    name: checkoutData.name, 
+    mobile: checkoutData.mobile, 
+    address: checkoutData.selectedAddress, 
+    orderDetails: orderDetailsPlain, 
+    total: grandTotal, 
+    sweetener: 'Mixed', // Handled per-item now
+    distance: checkoutData.distance 
+  };
+  
+  fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+  
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(checkoutData.selectedAddress)}`;
+  
+  let msg = `*🟢 NEW RAW LICIOUS ORDER*%0A%0A`;
+  msg += `*👤 CUSTOMER DETAILS*%0A`;
+  msg += `Name: ${checkoutData.name}%0A`;
+  msg += `Phone: ${checkoutData.mobile}%0A%0A`;
+  msg += `*🛒 ORDER ITEMS*%0A`;
+  msg += `${orderDetailsLines}%0A%0A`;
+  msg += `*📍 DELIVERY INFO*%0A`;
+  msg += `Address: ${checkoutData.selectedAddress}%0A`;
+  msg += `Map Link: ${mapLink}%0A%0A`;
+  msg += `*💵 BILLING*%0A`;
+  msg += `Subtotal: ₹${sub.toFixed(2)}%0A`;
+  if (fee > 0) msg += `Delivery Fee: ₹${fee.toFixed(2)}%0A`;
+  else msg += `Delivery Fee: FREE%0A`;
+  msg += `*Grand Total: ₹${grandTotal}*`;
+  
   window.location.href = `https://wa.me/918591791347?text=${msg}`;
 }
