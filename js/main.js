@@ -543,7 +543,7 @@ async function finalSubmit() {
   const grandTotal = (sub + fee).toFixed(2);
   
   // Format Order Lines beautifully for WhatsApp
-  const orderDetailsLines = cart.map(i => `• ${i.name} (${i.size}, ${i.sweetener || 'Honey'}) x${i.quantity}`).join('%0A');
+  const orderDetailsLines = cart.map(i => `• ${i.name} (${i.size}, ${i.sweetener || 'Honey'}) x${i.quantity}`).join('\n');
   const orderDetailsPlain = cart.map(i => `${i.name} (${i.size}) x${i.quantity}`).join(', ');
 
   const payload = { 
@@ -560,20 +560,20 @@ async function finalSubmit() {
   
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(checkoutData.selectedAddress)}`;
   
-  let msg = `*🟢 NEW RAW LICIOUS ORDER*%0A%0A`;
-  msg += `*👤 CUSTOMER DETAILS*%0A`;
-  msg += `Name: ${checkoutData.name}%0A`;
-  msg += `Phone: ${checkoutData.mobile}%0A%0A`;
-  msg += `*🛒 ORDER ITEMS*%0A`;
-  msg += `${orderDetailsLines}%0A%0A`;
-  msg += `*📍 DELIVERY INFO*%0A`;
-  msg += `Address: ${checkoutData.selectedAddress}%0A`;
-  msg += `Map Link: ${mapLink}%0A%0A`;
-  msg += `*💵 BILLING*%0A`;
-  msg += `Subtotal: ₹${sub.toFixed(2)}%0A`;
-  if (fee > 0) msg += `Delivery Fee: ₹${fee.toFixed(2)}%0A`;
-  else msg += `Delivery Fee: FREE%0A`;
+  let msg = `*🟢 NEW RAW LICIOUS ORDER*\n\n`;
+  msg += `*👤 CUSTOMER DETAILS*\n`;
+  msg += `Name: ${checkoutData.name}\n`;
+  msg += `Phone: ${checkoutData.mobile}\n\n`;
+  msg += `*🛒 ORDER ITEMS*\n`;
+  msg += `${orderDetailsLines}\n\n`;
+  msg += `*📍 DELIVERY INFO*\n`;
+  msg += `Address: ${checkoutData.selectedAddress}\n`;
+  msg += `Map Link: ${mapLink}\n\n`;
+  msg += `*💵 BILLING*\n`;
+  msg += `Subtotal: ₹${sub.toFixed(2)}\n`;
+  if (fee > 0) msg += `Delivery Fee: ₹${fee.toFixed(2)}\n`;
+  else msg += `Delivery Fee: FREE\n`;
   msg += `*Grand Total: ₹${grandTotal}*`;
   
-  window.location.href = `https://wa.me/918591791347?text=${msg}`;
+  window.location.href = `https://wa.me/918591791347?text=${encodeURIComponent(msg)}`;
 }
