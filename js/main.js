@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="menu-item-card glass-card">
             <div style="position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 12px;">
               <img src="${images[idx % 5]}" style="width: 100%; height: 100%; object-fit: cover;">
-              <button onclick="window.toggleHealthInfo(this, '${item.name}')" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); border-radius: 50%; width: 30px; height: 30px;"><span class="material-symbols-outlined">spa</span></button>
+              <button onclick="window.toggleHealthInfo(this, '${item.name}')" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); border-radius: 50%; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.2);"><span class="material-symbols-outlined" style="font-size: 16px; color: var(--primary);">spa</span></button>
             </div>
             <div class="menu-item-content" style="padding: 16px;">
               <h3 style="font-weight: 800; font-size: 1.1rem;">${item.name}</h3>

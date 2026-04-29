@@ -900,11 +900,12 @@ button {
   outline: none;
 }
 
-.custom-details-dropdown[open] summary span {
+.custom-details-dropdown[open] summary span:last-child {
   transform: rotate(180deg);
 }
 
-.custom-details-dropdown summary span {
+.custom-details-dropdown summary span:last-child {
+  display: inline-block;
   transition: transform 0.3s ease;
 }
 
