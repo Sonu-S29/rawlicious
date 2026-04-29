@@ -68,23 +68,23 @@ const CartManager = {
       const card = btn.closest('.glass-card') || btn.closest('.menu-item-card');
       const sweetener = card ? (card.querySelector('.sweetener-select')?.value || 'Honey') : 'Honey';
       const isAdded = cart.some(item => item.id === id && item.size === size && item.sweetener === sweetener);
-      
+
       if (isAdded) {
         if (btn.classList.contains('marquee-add-btn')) {
-           btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px; font-variation-settings: \\\'wght\\\' 300;">check_circle</span> Added';
+          btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px; font-variation-settings: \\\'wght\\\' 300;">check_circle</span> Added';
         } else {
-           btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: \\\'wght\\\' 300;">check</span>';
+          btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: \\\'wght\\\' 300;">check</span>';
         }
         btn.classList.add('btn-added-state');
         if (btn.classList.contains('btn-primary')) {
-           btn.style.backgroundColor = 'var(--primary)';
-           btn.style.color = '#000';
+          btn.style.backgroundColor = 'var(--primary)';
+          btn.style.color = '#000';
         }
       } else {
         if (btn.classList.contains('marquee-add-btn')) {
-           btn.innerHTML = 'Add';
+          btn.innerHTML = 'Add';
         } else {
-           btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: \\\'wght\\\' 300;">add_shopping_cart</span>';
+          btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: \\\'wght\\\' 300;">add_shopping_cart</span>';
         }
         btn.classList.remove('btn-added-state');
         btn.style.backgroundColor = '';
@@ -95,17 +95,17 @@ const CartManager = {
 };
 
 // --- Helper Functions ---
-window.addToCart = function(id, name, image, price, desc, btnElement, availablePricesStr, size = 'Standard') {
+window.addToCart = function (id, name, image, price, desc, btnElement, availablePricesStr, size = 'Standard') {
   let availablePrices = null;
   if (availablePricesStr) {
-    try { availablePrices = JSON.parse(decodeURIComponent(availablePricesStr)); } catch(e){}
+    try { availablePrices = JSON.parse(decodeURIComponent(availablePricesStr)); } catch (e) { }
   }
   const card = btnElement.closest('.glass-card') || btnElement.closest('.menu-item-card');
   const sweetener = card ? (card.querySelector('.sweetener-select')?.value || 'Honey') : 'Honey';
   CartManager.addItem(id, name, image, price, size, desc, availablePrices, sweetener);
 };
 
-window.changeSize = function(btnElement, size, price) {
+window.changeSize = function (btnElement, size, price) {
   const container = btnElement.closest('.glass-card') || btnElement.closest('.menu-item-content');
   container.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
   btnElement.classList.add('active');
@@ -119,7 +119,7 @@ window.changeSize = function(btnElement, size, price) {
   CartManager.updateMenuButtons();
 };
 
-window.updateCartItemSize = function(uniqueId, newSize) {
+window.updateCartItemSize = function (uniqueId, newSize) {
   const cart = CartManager.getCart();
   const index = cart.findIndex(i => i.uniqueId === uniqueId);
   if (index > -1) {
@@ -127,7 +127,7 @@ window.updateCartItemSize = function(uniqueId, newSize) {
     const newPrice = item.availablePrices[newSize];
     const sw = item.sweetener || 'Honey';
     const newUniqueId = `${item.id}-${newSize}-${sw}`;
-    
+
     const existingIndex = cart.findIndex(i => i.uniqueId === newUniqueId);
     if (existingIndex > -1 && existingIndex !== index) {
       cart[existingIndex].quantity += item.quantity;
@@ -142,13 +142,13 @@ window.updateCartItemSize = function(uniqueId, newSize) {
   }
 };
 
-window.updateCartItemSweetener = function(uniqueId, newSweetener) {
+window.updateCartItemSweetener = function (uniqueId, newSweetener) {
   const cart = CartManager.getCart();
   const index = cart.findIndex(i => i.uniqueId === uniqueId);
   if (index > -1) {
     const item = cart[index];
     const newUniqueId = `${item.id}-${item.size}-${newSweetener}`;
-    
+
     const existingIndex = cart.findIndex(i => i.uniqueId === newUniqueId);
     if (existingIndex > -1 && existingIndex !== index) {
       cart[existingIndex].quantity += item.quantity;
@@ -161,7 +161,7 @@ window.updateCartItemSweetener = function(uniqueId, newSweetener) {
   }
 };
 
-window.toggleHealthInfo = function(btnElement, itemName) {
+window.toggleHealthInfo = function (btnElement, itemName) {
   document.querySelectorAll('.health-popup').forEach(p => p.remove());
   const seed = itemName.length + itemName.charCodeAt(0);
   const calories = 80 + (seed % 150);
@@ -202,7 +202,7 @@ function renderCartPage() {
             <details style="font-size: 0.75rem; position: relative;">
                <summary style="cursor: pointer; color: var(--primary); background: rgba(205,255,96,0.05); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(205,255,96,0.15);">${item.sweetener || 'Honey'} ▼</summary>
                <div style="position: absolute; background: #0A180E; border: 1px solid rgba(205,255,96,0.2); border-radius: 8px; z-index: 100; width: 100px; top: 100%; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); overflow: hidden;">
-                 ${['Honey', 'Jaggery', 'Sugar', 'None'].map(sw => `<div onclick="window.updateCartItemSweetener('${item.uniqueId}', '${sw}')" style="padding: 8px 12px; cursor: pointer; color: ${sw === (item.sweetener||'Honey') ? 'var(--primary)' : '#fff'}; background: ${sw === (item.sweetener||'Honey') ? 'rgba(205,255,96,0.1)' : 'transparent'};" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='${sw === (item.sweetener||'Honey') ? 'rgba(205,255,96,0.1)' : 'transparent'}'">${sw}</div>`).join('')}
+                 ${['Honey', 'Jaggery', 'Sugar', 'None'].map(sw => `<div onclick="window.updateCartItemSweetener('${item.uniqueId}', '${sw}')" style="padding: 8px 12px; cursor: pointer; color: ${sw === (item.sweetener || 'Honey') ? 'var(--primary)' : '#fff'}; background: ${sw === (item.sweetener || 'Honey') ? 'rgba(205,255,96,0.1)' : 'transparent'};" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='${sw === (item.sweetener || 'Honey') ? 'rgba(205,255,96,0.1)' : 'transparent'}'">${sw}</div>`).join('')}
                </div>
             </details>
           </div>
@@ -242,7 +242,7 @@ function renderCheckoutPage() {
   };
   window.addEventListener('cartUpdated', updateUI);
   updateUI();
-  
+
   const btn = document.getElementById('btnConfirmOrder');
   const inputPhone = document.getElementById('inputPhone');
   const distanceText = document.getElementById('distanceText');
@@ -267,34 +267,34 @@ function renderCheckoutPage() {
     }
     if (distanceText) distanceText.innerText = "Verifying & calculating...";
     try {
-      const geo = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(addr)}&apiKey=${GEOAPIFY_KEY}`).then(r=>r.json());
-      if(geo.features && geo.features.length > 0) {
-         // Check confidence if available, but primarily trust the Pincode requirement
-         const bestMatch = geo.features[0];
-         const {lat, lon} = bestMatch.properties;
-         const radLat1 = SHOP_LAT * Math.PI / 180;
-         const radLat2 = lat * Math.PI / 180;
-         const radTheta = (lon - SHOP_LON) * Math.PI / 180;
-         let dot = Math.sin(radLat1) * Math.sin(radLat2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radTheta);
-         dot = Math.max(-1, Math.min(1, dot)); // Prevent floating point NaN
-         const dist = Math.acos(dot) * 6371;
-         
-         checkoutData.distance = dist.toFixed(2);
-         checkoutData.fee = dist > 1 ? Math.round((dist-1)*12) : 0;
-         if (distanceText) distanceText.innerHTML = `<span style="color: #34d399;">✓ Verified</span> - Distance: ${checkoutData.distance} km`;
-         if (deliveryFeeText) deliveryFeeText.innerText = `Fee: ₹${checkoutData.fee}`;
-         updateUI();
+      const geo = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(addr)}&apiKey=${GEOAPIFY_KEY}`).then(r => r.json());
+      if (geo.features && geo.features.length > 0) {
+        // Check confidence if available, but primarily trust the Pincode requirement
+        const bestMatch = geo.features[0];
+        const { lat, lon } = bestMatch.properties;
+        const radLat1 = SHOP_LAT * Math.PI / 180;
+        const radLat2 = lat * Math.PI / 180;
+        const radTheta = (lon - SHOP_LON) * Math.PI / 180;
+        let dot = Math.sin(radLat1) * Math.sin(radLat2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radTheta);
+        dot = Math.max(-1, Math.min(1, dot)); // Prevent floating point NaN
+        const dist = Math.acos(dot) * 6371;
+
+        checkoutData.distance = dist.toFixed(2);
+        checkoutData.fee = dist > 1 ? Math.round((dist - 1) * 12) : 0;
+        if (distanceText) distanceText.innerHTML = `<span style="color: #34d399;">✓ Verified</span> - Distance: ${checkoutData.distance} km`;
+        if (deliveryFeeText) deliveryFeeText.innerText = `Fee: ₹${checkoutData.fee}`;
+        updateUI();
       } else {
-         if (distanceText) distanceText.innerText = "Address not found. Please refine.";
+        if (distanceText) distanceText.innerText = "Address not found. Please refine.";
       }
-    } catch(e) {
+    } catch (e) {
       if (distanceText) distanceText.innerText = "Error calculating distance.";
     }
   };
 
   ['inputBuilding', 'inputStreet', 'inputLandmark', 'inputPincode'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.addEventListener('blur', calculateAddressDistance);
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('blur', calculateAddressDistance);
   });
 
   if (inputPhone) {
@@ -313,7 +313,7 @@ function renderCheckoutPage() {
           calculateAddressDistance();
         }
         checkoutData.points = data.points || 0;
-      } catch(e) {}
+      } catch (e) { }
     });
   }
 
@@ -321,17 +321,17 @@ function renderCheckoutPage() {
     btn.onclick = async (e) => {
       e.preventDefault();
       if (inputPhone && document.getElementById('inputBuilding')) {
-          const inputName = document.getElementById('inputName');
-          checkoutData.name = inputName ? inputName.value.trim() : '';
-          checkoutData.mobile = inputPhone.value;
-          checkoutData.selectedAddress = getFullAddress();
-          
-          if(!checkoutData.name) return alert('Enter full name');
-          if(!checkoutData.mobile) return alert('Enter phone number');
-          if(!checkoutData.selectedAddress) return alert('Please completely fill all 4 address fields (Building, Street, Landmark, Pincode).');
-          finalSubmit();
+        const inputName = document.getElementById('inputName');
+        checkoutData.name = inputName ? inputName.value.trim() : '';
+        checkoutData.mobile = inputPhone.value;
+        checkoutData.selectedAddress = getFullAddress();
+
+        if (!checkoutData.name) return alert('Enter full name');
+        if (!checkoutData.mobile) return alert('Enter phone number');
+        if (!checkoutData.selectedAddress) return alert('Please completely fill all 4 address fields (Building, Street, Landmark, Pincode).');
+        finalSubmit();
       } else {
-          startSmartCheckout();
+        startSmartCheckout();
       }
     };
   }
@@ -354,59 +354,38 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     homeWrapper.innerHTML = cats.map((cat, idx) => {
       const items = (menuData[cat.id] || []).slice(0, 5);
-      
-      // Loop 3 times to create a scrolling marquee effect
-      let marqueeHTML = '';
-      for (let loop = 0; loop < 3; loop++) {
-        marqueeHTML += items.map((item, i) => {
-          const prices = item.prices || { 'Standard': item.price || 0 };
-          const sizes = Object.keys(prices);
-          const encoded = encodeURIComponent(JSON.stringify(prices));
-          return `
-            <div class="glass-card marquee-product-card" style="padding: 10px; width: 140px; flex-shrink: 0; display: flex; flex-direction: column;">
-              <div style="position: relative; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden;">
-                <img src="${images[(i+idx)%5]}" style="width: 100%; height: 100%; object-fit: cover;">
-                <button onclick="window.toggleHealthInfo(this, '${item.name}')" style="position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2);"><span class="material-symbols-outlined" style="font-size: 13px; color: var(--primary); font-variation-settings: 'wght' 300;">spa</span></button>
-                <div class="marquee-price-tag" style="position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 99px; font-size: 0.65rem; font-weight: 800; color: var(--primary);">₹${prices[sizes[0]]}</div>
-              </div>
-              <h4 style="font-size: 0.8rem; font-weight: 800; margin: 8px 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.name}</h4>
-              <div class="size-selector" style="margin-bottom: 6px;">
-                 ${sizes.map((s, si) => `<button class="size-btn ${si===0?'active':''}" style="font-size: 0.6rem; padding: 4px 6px;" onclick="window.changeSize(this, '${s}', ${prices[s]})">${s}</button>`).join('')}
-              </div>
-              <div class="custom-dropdown-container" style="position: relative; width: 100%; margin-bottom: 12px;">
-                <input type="hidden" class="sweetener-select" value="Honey">
-                <details class="custom-details-dropdown" style="width: 100%; font-size: 0.75rem;">
-                  <summary style="cursor: pointer; color: #fff; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px 8px; display: flex; justify-content: space-between; align-items: center; list-style: none;">
-                    <span class="selected-text">🍯 Honey</span> <span style="font-size: 0.6rem;">▼</span>
-                  </summary>
-                  <div style="position: absolute; background: #0A180E; border: 1px solid rgba(205,255,96,0.2); border-radius: 8px; z-index: 100; width: 100%; top: 100%; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); overflow: hidden;">
-                    ${[{v:'Honey',l:'🍯 Honey'},{v:'Jaggery',l:'🌴 Jaggery'},{v:'Sugar',l:'🍬 Sugar'},{v:'None',l:'🍃 None'}].map(o => `
-                      <div onclick="
-                        const c = this.closest('.custom-dropdown-container');
-                        c.querySelector('.sweetener-select').value = '${o.v}';
-                        c.querySelector('.selected-text').innerText = '${o.l}';
-                        this.closest('details').removeAttribute('open');
-                        CartManager.updateMenuButtons();
-                      " style="padding: 8px 12px; cursor: pointer; color: #fff;" onmouseover="this.style.background='rgba(205,255,96,0.1)'; this.style.color='var(--primary)'" onmouseout="this.style.background='transparent'; this.style.color='#fff'">${o.l}</div>
-                    `).join('')}
-                  </div>
-                </details>
-              </div>
-              <button class="marquee-add-btn add-btn btn-primary" data-item-id="${item.id}" data-size="${sizes[0]}" data-price="${prices[sizes[0]]}" style="width: 100%; padding: 6px; border-radius: 6px; font-size: 0.7rem; margin-top: auto;" onclick="window.addToCart('${item.id}', '${item.name}', '${images[(i+idx)%5]}', this.dataset.price, '', this, '${encoded}', this.dataset.size)">Add</button>
+
+      const gridHTML = items.map((item, i) => {
+        const prices = item.prices || { 'Standard': item.price || 0 };
+        const sizes = Object.keys(prices);
+        const encoded = encodeURIComponent(JSON.stringify(prices));
+        return `
+          <div class="product-grid-card">
+            <div style="position: relative; aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; margin-bottom: 12px;">
+              <img src="${images[(i + idx) % 5]}" style="width: 100%; height: 100%; object-fit: cover;">
+              <button onclick="window.toggleHealthInfo(this, '${item.name}')" style="position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2);"><span class="material-symbols-outlined" style="font-size: 13px; color: var(--primary); font-variation-settings: 'wght' 300;">spa</span></button>
             </div>
-          `;
-        }).join('');
-      }
+            <h4 style="font-size: 0.85rem; font-weight: 800; margin-bottom: 4px; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${item.name}</h4>
+            <div class="flex justify-between items-center mt-auto pt-2">
+              <span style="font-size: 0.9rem; font-weight: 900; color: var(--primary);">₹${prices[sizes[0]]}</span>
+              <button class="btn-primary" style="padding: 6px 12px; border-radius: 999px; font-size: 0.7rem; font-weight: 800;" onclick="window.openCustomizationSheet('${item.id}', '${item.name.replace(/'/g,"\\'")}', '${images[(i + idx) % 5]}', '${encoded}', '${sizes[0]}')">Add</button>
+            </div>
+          </div>
+        `;
+      }).join('');
 
       return `
-        <div class="category-row-wrapper" style="margin-bottom: 32px; width: 100%; display: flex; align-items: stretch;">
-          <a href="menu.html?category=${cat.id}" class="glass-card category-side-card" style="text-decoration: none; flex-shrink: 0; width: 100px; padding: 10px; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; height: auto;">
-            <div style="width: 100%; aspect-ratio: 3/4; overflow: hidden; border-radius: 8px; margin-bottom: 8px;"><img src="${cat.img}" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <h3 style="font-weight: 800; font-size: 0.8rem; line-height: 1.2;">${cat.name}</h3>
-            <p style="font-size: 0.65rem; opacity: 0.7; margin-top: 4px;">${cat.desc}</p>
+        <div class="category-row-wrapper" style="margin-bottom: 32px; width: 100%;">
+          <a href="menu.html?category=${cat.id}" class="glass-card category-side-card" style="text-decoration: none; display: flex; flex-direction: row; align-items: center; text-align: left; padding: 12px 16px; margin-bottom: 16px; width: 100%;">
+            <div style="width: 48px; height: 48px; overflow: hidden; border-radius: 8px; margin-right: 12px; flex-shrink: 0;"><img src="${cat.img}" style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div>
+              <h3 style="font-weight: 800; font-size: 1rem; line-height: 1.2; margin-bottom: 2px;">${cat.name}</h3>
+              <p style="font-size: 0.7rem; opacity: 0.7;">${cat.desc}</p>
+            </div>
+            <span class="material-symbols-outlined" style="margin-left: auto; color: var(--primary);">chevron_right</span>
           </a>
-          <div class="marquee-container no-scrollbar" style="display: flex; gap: 12px; overflow-x: auto; padding: 12px; flex-grow: 1; scroll-behavior: auto; scroll-snap-type: none;">
-             ${marqueeHTML}
+          <div class="product-grid-2col">
+             ${gridHTML}
           </div>
         </div>
       `;
@@ -420,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.addEventListener('mouseleave', () => isDown = false);
         container.addEventListener('focusin', () => isDown = true);
         container.addEventListener('focusout', () => isDown = false);
-        container.addEventListener('touchstart', () => isDown = true, {passive: true});
+        container.addEventListener('touchstart', () => isDown = true, { passive: true });
         container.addEventListener('touchend', () => isDown = false);
 
         setInterval(() => {
@@ -438,10 +417,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuGrid = document.getElementById('menuGrid');
   const catNav = document.getElementById('categoryNav');
   if (menuGrid && catNav && typeof menuData !== 'undefined') {
-    const cats = [ { id: 'coldPress', label: 'Cold Press' }, { id: 'fruitJuices', label: 'Fruits' }, { id: 'fruitMilkshake', label: 'Milkshakes' }, { id: 'dryFruitsMilkshake', label: 'Dry Fruits' }, { id: 'boxes', label: 'Boxes' } ];
+    const cats = [{ id: 'coldPress', label: 'Cold Press' }, { id: 'fruitJuices', label: 'Fruits' }, { id: 'fruitMilkshake', label: 'Milkshakes' }, { id: 'dryFruitsMilkshake', label: 'Dry Fruits' }, { id: 'boxes', label: 'Boxes' }];
     let active = new URLSearchParams(window.location.search).get('category') || 'coldPress';
     const render = () => {
-      catNav.innerHTML = cats.map(c => `<button class="category-btn ${c.id===active?'active':''}" onclick="location.search='?category=${c.id}'">${c.label}</button>`).join('');
+      catNav.innerHTML = cats.map(c => `<button class="category-btn ${c.id === active ? 'active' : ''}" onclick="location.search='?category=${c.id}'">${c.label}</button>`).join('');
       menuGrid.innerHTML = (menuData[active] || []).map((item, idx) => {
         const prices = item.prices || { 'Standard': item.price || 0 };
         const sizes = Object.keys(prices);
@@ -453,34 +432,11 @@ document.addEventListener('DOMContentLoaded', () => {
               <button onclick="window.toggleHealthInfo(this, '${item.name}')" style="position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.3); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2);"><span class="material-symbols-outlined" style="font-size: 14px; color: var(--primary); font-variation-settings: 'wght' 300;">spa</span></button>
             </div>
             <div class="menu-item-content" style="padding: 16px;">
-              <h3 style="font-weight: 800; font-size: 1.1rem;">${item.name}</h3>
-              <div class="size-selector" style="margin: 12px 0;">
-                ${sizes.map((s, si) => `<button class="size-btn ${si===0?'active':''}" onclick="window.changeSize(this, '${s}', ${prices[s]})">${s}</button>`).join('')}
-              </div>
-              <div class="custom-dropdown-container" style="position: relative; width: 100%; margin-bottom: 16px;">
-                <input type="hidden" class="sweetener-select" value="Honey">
-                <details class="custom-details-dropdown" style="width: 100%; font-size: 0.8rem;">
-                  <summary style="cursor: pointer; color: #fff; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; list-style: none;">
-                    <span class="selected-text">🍯 Honey</span> <span style="font-size: 0.6rem;">▼</span>
-                  </summary>
-                  <div style="position: absolute; background: #0A180E; border: 1px solid rgba(205,255,96,0.2); border-radius: 8px; z-index: 100; width: 100%; top: 100%; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); overflow: hidden;">
-                    ${[{v:'Honey',l:'🍯 Honey'},{v:'Jaggery',l:'🌴 Jaggery'},{v:'Sugar',l:'🍬 Sugar'},{v:'None',l:'🍃 None'}].map(o => `
-                      <div onclick="
-                        const c = this.closest('.custom-dropdown-container');
-                        c.querySelector('.sweetener-select').value = '${o.v}';
-                        c.querySelector('.selected-text').innerText = '${o.l}';
-                        this.closest('details').removeAttribute('open');
-                        CartManager.updateMenuButtons();
-                      " style="padding: 10px 12px; cursor: pointer; color: #fff;" onmouseover="this.style.background='rgba(205,255,96,0.1)'; this.style.color='var(--primary)'" onmouseout="this.style.background='transparent'; this.style.color='#fff'">${o.l}</div>
-                    `).join('')}
-                  </div>
-                </details>
-              </div>
+              <h3 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 8px;">${item.name}</h3>
+              <p style="font-size: 0.8rem; color: var(--on-surface-variant); margin-bottom: 16px; line-height: 1.4;">Freshly cold-pressed and rich in essential nutrients.</p>
               <div class="flex justify-between items-center mt-auto">
                 <span class="dynamic-price" style="font-size: 1.2rem; font-weight: 900; color: var(--primary);">₹${prices[sizes[0]]}</span>
-                <button class="add-btn btn-primary" data-item-id="${item.id}" data-size="${sizes[0]}" data-price="${prices[sizes[0]]}" style="padding: 0; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;" onclick="window.addToCart('${item.id}', '${item.name}', '${images[idx % 5]}', this.dataset.price, '', this, '${encoded}', this.dataset.size)">
-                  <span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: 'wght' 300;">add_shopping_cart</span>
-                </button>
+                <button class="btn-primary" style="padding: 8px 20px; border-radius: 999px; font-size: 0.85rem; font-weight: 800;" onclick="window.openCustomizationSheet('${item.id}', '${item.name.replace(/'/g,"\\'")}', '${images[idx % 5]}', '${encoded}', '${sizes[0]}')">Customize</button>
               </div>
             </div>
           </div>
@@ -518,7 +474,7 @@ async function handleStep1() {
           <span class="selected-text">🍯 Honey</span> <span style="font-size: 0.8rem;">▼</span>
         </summary>
         <div style="position: absolute; background: #0A180E; border: 1px solid rgba(205,255,96,0.2); border-radius: 8px; z-index: 100; width: 100%; top: 100%; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); overflow: hidden;">
-          ${[{v:'Honey',l:'🍯 Honey'},{v:'Jaggery',l:'🌴 Jaggery'},{v:'Sugar',l:'🍬 Sugar'},{v:'None',l:'🍃 None'}].map(o => `
+          ${[{ v: 'Honey', l: '🍯 Honey' }, { v: 'Jaggery', l: '🌴 Jaggery' }, { v: 'Sugar', l: '🍬 Sugar' }, { v: 'None', l: '🍃 None' }].map(o => `
             <div onclick="
               const c = this.closest('.custom-dropdown-container');
               c.querySelector('#swIn').value = '${o.v}';
@@ -534,11 +490,11 @@ async function handleStep1() {
 async function handleStep2() {
   checkoutData.sweetener = document.getElementById('swIn').value;
   document.getElementById('checkoutContent').innerHTML = `<p>Calculating distance...</p>`;
-  const geo = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(checkoutData.selectedAddress)}&apiKey=${GEOAPIFY_KEY}`).then(r=>r.json());
-  const {lat, lon} = geo.features[0].properties;
-  const dist = (Math.acos(Math.sin(SHOP_LAT*Math.PI/180)*Math.sin(lat*Math.PI/180) + Math.cos(SHOP_LAT*Math.PI/180)*Math.cos(lat*Math.PI/180)*Math.cos((lon-SHOP_LON)*Math.PI/180)) * 6371);
+  const geo = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(checkoutData.selectedAddress)}&apiKey=${GEOAPIFY_KEY}`).then(r => r.json());
+  const { lat, lon } = geo.features[0].properties;
+  const dist = (Math.acos(Math.sin(SHOP_LAT * Math.PI / 180) * Math.sin(lat * Math.PI / 180) + Math.cos(SHOP_LAT * Math.PI / 180) * Math.cos(lat * Math.PI / 180) * Math.cos((lon - SHOP_LON) * Math.PI / 180)) * 6371);
   checkoutData.distance = dist.toFixed(2);
-  checkoutData.fee = dist > 1 ? Math.round((dist-1)*12) : 0;
+  checkoutData.fee = dist > 1 ? Math.round((dist - 1) * 12) : 0;
   const sub = CartManager.getSubtotal();
   document.getElementById('checkoutContent').innerHTML = `<h2>Final Review</h2><p>Distance: ${checkoutData.distance} km</p><p>Fee: ₹${checkoutData.fee}</p><p>Total: ₹${(sub + 10 + checkoutData.fee).toFixed(2)}</p><button onclick="finalSubmit()" class="btn-primary w-full p-4 mt-4" style="background: #25D366;">Confirm & WhatsApp</button>`;
 }
@@ -547,25 +503,25 @@ async function finalSubmit() {
   const sub = CartManager.getSubtotal();
   const fee = checkoutData.fee || 0;
   const grandTotal = (sub + fee).toFixed(2);
-  
+
   // Format Order Lines beautifully for WhatsApp
   const orderDetailsLines = cart.map(i => `• ${i.name} (${i.size}, ${i.sweetener || 'Honey'}) x${i.quantity}`).join('\n');
   const orderDetailsPlain = cart.map(i => `${i.name} (${i.size}) x${i.quantity}`).join(', ');
 
-  const payload = { 
-    name: checkoutData.name, 
-    mobile: checkoutData.mobile, 
-    address: checkoutData.selectedAddress, 
-    orderDetails: orderDetailsPlain, 
-    total: grandTotal, 
+  const payload = {
+    name: checkoutData.name,
+    mobile: checkoutData.mobile,
+    address: checkoutData.selectedAddress,
+    orderDetails: orderDetailsPlain,
+    total: grandTotal,
     sweetener: 'Mixed', // Handled per-item now
-    distance: checkoutData.distance 
+    distance: checkoutData.distance
   };
-  
+
   fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-  
+
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(checkoutData.selectedAddress)}`;
-  
+
   let msg = `*🟢 NEW RAW LICIOUS ORDER*\n\n`;
   msg += `*👤 CUSTOMER DETAILS*\n`;
   msg += `Name: ${checkoutData.name}\n`;
@@ -580,6 +536,117 @@ async function finalSubmit() {
   if (fee > 0) msg += `Delivery Fee: ₹${fee.toFixed(2)}\n`;
   else msg += `Delivery Fee: FREE\n`;
   msg += `*Grand Total: ₹${grandTotal}*`;
-  
+
   window.location.href = `https://wa.me/918591791347?text=${encodeURIComponent(msg)}`;
 }
+
+// --- Bottom Sheet Customization Flow ---
+window.sheetState = {
+  itemId: '', itemName: '', itemImage: '', encodedPrices: '',
+  sizes: [], prices: {}, currentSize: '', currentSweetener: 'Honey', currentQuantity: 1
+};
+
+window.openCustomizationSheet = function(itemId, itemName, itemImage, encodedPricesStr, defaultSize) {
+  const prices = JSON.parse(decodeURIComponent(encodedPricesStr));
+  const sizes = Object.keys(prices);
+  
+  window.sheetState = {
+    itemId, itemName, itemImage, encodedPrices: encodedPricesStr,
+    sizes, prices, currentSize: defaultSize || sizes[0], currentSweetener: 'Honey', currentQuantity: 1
+  };
+  
+  window.renderBottomSheet();
+  
+  let sheet = document.getElementById('customBottomSheet');
+  if(!sheet) {
+    document.body.insertAdjacentHTML('beforeend', `<div id="customBottomSheet" class="bottom-sheet-overlay" onclick="if(event.target===this) window.closeCustomizationSheet()"></div>`);
+    sheet = document.getElementById('customBottomSheet');
+  }
+  
+  setTimeout(() => { sheet.classList.add('show'); }, 10);
+};
+
+window.closeCustomizationSheet = function() {
+  const sheet = document.getElementById('customBottomSheet');
+  if(sheet) sheet.classList.remove('show');
+};
+
+window.updateSheetSize = function(size) {
+  window.sheetState.currentSize = size;
+  window.renderBottomSheet();
+};
+
+window.updateSheetSweetener = function(sw) {
+  window.sheetState.currentSweetener = sw;
+  window.renderBottomSheet();
+};
+
+window.updateSheetQuantity = function(delta) {
+  window.sheetState.currentQuantity += delta;
+  if(window.sheetState.currentQuantity < 1) window.sheetState.currentQuantity = 1;
+  window.renderBottomSheet();
+};
+
+window.confirmSheetAdd = function() {
+  const s = window.sheetState;
+  for(let i=0; i<s.currentQuantity; i++) {
+    window.addToCart(s.itemId, s.itemName, s.itemImage, s.prices[s.currentSize], '', null, s.encodedPrices, s.currentSize, s.currentSweetener);
+  }
+  window.closeCustomizationSheet();
+};
+
+window.renderBottomSheet = function() {
+  const s = window.sheetState;
+  const sheet = document.getElementById('customBottomSheet');
+  if(!sheet) return;
+  
+  sheet.innerHTML = `
+    <div class="bottom-sheet-content" style="padding-bottom: env(safe-area-inset-bottom, 20px);">
+      <div class="sheet-drag-handle"></div>
+      <div class="sheet-scroll-area no-scrollbar">
+        <div class="flex items-center gap-4 mb-6">
+          <img src="${s.itemImage}" style="width: 80px; height: 80px; border-radius: 16px; object-fit: cover;">
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 4px; line-height: 1.2;">${s.itemName}</h3>
+            <p style="color: var(--primary); font-weight: 900; font-size: 1.1rem;">₹${s.prices[s.currentSize]}</p>
+          </div>
+          <button onclick="window.closeCustomizationSheet()" style="margin-left: auto; width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span class="material-symbols-outlined" style="font-size: 18px;">close</span></button>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <h4 style="font-size: 0.875rem; font-weight: 700; margin-bottom: 12px; color: var(--on-surface-variant);">Select Size</h4>
+          <div class="flex gap-2">
+             ${s.sizes.map(size => `
+               <button class="segment-btn ${size===s.currentSize?'active':''}" onclick="window.updateSheetSize('${size}')" style="flex: 1; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 0.9rem;">${size}</button>
+             `).join('')}
+          </div>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <h4 style="font-size: 0.875rem; font-weight: 700; margin-bottom: 12px; color: var(--on-surface-variant);">Sweetener (Optional)</h4>
+          <div class="flex flex-wrap gap-2">
+             ${[{v:'Honey',l:'🍯 Honey'}, {v:'Jaggery',l:'🌴 Jaggery'}, {v:'Sugar',l:'🍬 Sugar'}, {v:'None',l:'🍃 None'}].map(o => `
+               <button class="chip-btn ${o.v===s.currentSweetener?'active':''}" onclick="window.updateSheetSweetener('${o.v}')" style="padding: 10px 16px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; font-weight: 600;">${o.l}</button>
+             `).join('')}
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center" style="margin-bottom: 24px;">
+          <h4 style="font-size: 0.875rem; font-weight: 700; color: var(--on-surface-variant);">Quantity</h4>
+          <div class="flex items-center gap-4" style="background: rgba(255,255,255,0.05); padding: 4px; border-radius: 99px;">
+            <button onclick="window.updateSheetQuantity(-1)" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;"><span class="material-symbols-outlined" style="font-size: 18px;">remove</span></button>
+            <span style="font-weight: 800; font-size: 1.1rem; width: 24px; text-align: center;">${s.currentQuantity}</span>
+            <button onclick="window.updateSheetQuantity(1)" style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: #000; display: flex; align-items: center; justify-content: center;"><span class="material-symbols-outlined" style="font-size: 18px;">add</span></button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="sheet-bottom-sticky">
+        <button onclick="window.confirmSheetAdd()" class="btn-primary" style="width: 100%; padding: 16px; font-size: 1.1rem; border-radius: 999px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 24px rgba(205,255,96,0.2);">
+          <span>Add to Cart</span>
+          <span>₹${(s.prices[s.currentSize] * s.currentQuantity).toFixed(2)}</span>
+        </button>
+      </div>
+    </div>
+  `;
+};

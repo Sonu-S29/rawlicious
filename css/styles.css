@@ -1003,3 +1003,111 @@ button {
     transform: translateY(0);
   }
 }
+
+/* --- Bottom Sheet Customization Flow --- */
+.bottom-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bottom-sheet-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-sheet-content {
+  width: 100%;
+  max-height: 85vh;
+  background: rgba(10, 24, 14, 0.95);
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+  border-top: 1px solid rgba(205, 255, 96, 0.2);
+  padding: 24px 24px 0 24px;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-sheet-overlay.show .bottom-sheet-content {
+  transform: translateY(0);
+}
+
+.sheet-drag-handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  margin: 0 auto 24px auto;
+}
+
+.sheet-scroll-area {
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+
+.segment-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--on-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.segment-btn.active {
+  background: rgba(205, 255, 96, 0.15);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.chip-btn {
+  background: transparent;
+  color: var(--on-surface);
+  transition: all 0.2s ease;
+}
+
+.chip-btn.active {
+  background: var(--primary);
+  color: #000;
+  border-color: var(--primary) !important;
+}
+
+.sheet-bottom-sticky {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(10, 24, 14, 1) 50%, rgba(10, 24, 14, 0));
+  padding: 24px 0 env(safe-area-inset-bottom, 24px) 0;
+  margin-top: auto;
+}
+
+/* --- 2-Column Product Grid --- */
+.product-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.product-grid-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 12px;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .product-grid-2col {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
